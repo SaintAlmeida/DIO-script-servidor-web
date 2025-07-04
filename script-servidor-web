@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Script de provisionamento automático de um servidor web Apache
+
+echo "🔧 Atualizando pacotes do sistema..."
+sudo apt update && sudo apt upgrade -y
+
+echo "🌐 Instalando o servidor web Apache..."
+sudo apt install apache2 -y
+
+echo "📁 Criando uma página HTML de teste..."
+echo "<!DOCTYPE html>
+<html lang='pt-BR'>
+<head>
+    <meta charset='UTF-8'>
+    <title>Servidor Web Provisionado</title>
+</head>
+<body>
+    <h1>Servidor Web provisionado com sucesso!</h1>
+    <p>Este servidor foi configurado automaticamente por um script Bash.</p>
+</body>
+</html>" | sudo tee /var/www/html/index.html > /dev/null
+
+echo "🚀 Iniciando e habilitando o Apache no boot..."
+sudo systemctl start apache2
+sudo systemctl enable apache2
+
+echo "✅ Servidor Web Apache instalado e em execução!"
